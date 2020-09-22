@@ -11,8 +11,9 @@ class CategoryController {
     }
 
     async index(req, res) {
+        const { userId } = req.params;
         try {
-            const categories = await Category.find().populate("user");
+            const categories = await Category.find({ user: userId }).populate("user");
             return res.json(categories);
 
         } catch (error) {

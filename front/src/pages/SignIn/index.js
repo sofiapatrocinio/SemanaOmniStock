@@ -11,7 +11,7 @@ export default function SignIn() {
             <p> Entrar em meu estoque </p>
             <div className="form">
             <input placeholder="Email"/>
-            <input placeholder="Senha"/>
+            <input type="password" placeholder="Senha"/>
             <button>Entrar</button>
             </div>
             <p>Não possui uma conta?</p>

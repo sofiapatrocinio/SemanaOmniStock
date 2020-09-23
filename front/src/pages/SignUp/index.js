@@ -12,8 +12,8 @@ export default function SignUp() {
             <div className="form">
             <input placeholder="Nome"/>
             <input placeholder="Email"/>
-            <input placeholder="Senha"/>
-            <input placeholder="Confirmar Senha"/>
+            <input type="password" placeholder="Senha"/>
+            <input type="password" placeholder="Confirmar Senha"/>
             <button>Cadastrar</button>
             </div>
             <p>Já possui uma conta?</p>

@@ -1,26 +1,31 @@
-.form{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.login-container {
-    margin-top: 100px;
+.home-container {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 200px;
 }
 
-.login-content {
-    width: 50%;
+.home-header {
+    position: absolute;
+    top: 15px;
+    width: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    justify-content: space-between;
 }
 
-.form input {
-    margin-bottom: 10px;
-    width: 250px;
+.add-product {
+    align-self: flex-end;
+}
+
+.logout-button {
+    margin-top: 40px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    opacity: 0.6;
 }

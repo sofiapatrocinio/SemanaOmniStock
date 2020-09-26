@@ -13,7 +13,11 @@ class App {
 
     middlewares() {
         this.app.use(express.json());
-        this.app.use(cors());
+        this.app.use(
+            cors({
+                exposedHeaders: "x-auth-token",
+        })
+    );
     }
 
     routes() {

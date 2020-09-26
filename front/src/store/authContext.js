@@ -27,11 +27,6 @@ const signIn = async (email, password) => {
         console.log(error);
         alert(error?.response?.data?.message || "Não foi possível realizar seu login");
     };
-    
-    return( <AuthContext.Provider value={{ signIn, user, isUserLogged: !!user }}>
-        {children}
-    </AuthContext.Provider>
-    )   
 }
 
 const signUp = async(name, email, password) => {
@@ -46,7 +41,7 @@ const signUp = async(name, email, password) => {
     };
 }
     
-    return( <AuthContext.Provider value={{ signUp, user, isUserLogged: !!user }}>
+    return( <AuthContext.Provider value={{ signIn, signUp, user, isUserLogged: !!user }}>
         {children}
     </AuthContext.Provider>
     );

@@ -1,7 +1,15 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import { AuthContext}  from '../../store/authContext'
 
-export default function Home () {
+export default function Home ({ history }) {
+    const { signIn, isUserLogged } = useContext(AuthContext);
+
+    useEffect(() => {
+        if(!isUserLogged){
+            history.push('/');
+        }
+    }, [isUserLogged]);
+
     const { user } = useContext(AuthContext);
     return(
         <div>

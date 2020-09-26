@@ -6,24 +6,25 @@ import ProductService from '../../services/Product'
 import CategoriesService from '../../services/Categories'
 import NewCategoryModal from '../NewCategoryModal'
 
-export default function NewProductModal({modalVisible, setModalVisible, getProducts}) {
+export default function NewProductModal({modalVisible, setModalVisible, product, getProducts}) {
     const {user} = useContext(AuthContext);
     const [categories, setCategories] = useState([]);
     const [newCategoryModalVisible, setNewCategoryModalVisible] = useState(false);
-    const [name, setName] = useState('');
-    const [price, setPrice] = useState('');
-    const [category, setCategory] = useState('');
+    const [name, setName] = useState(product?.name);
+    const [price, setPrice] = useState(product?.price);
+    const [category, setCategory] = useState(product?.category?._id);
     useEffect(() => {
         if(user) loadCategories();
     }, [user]);
 
-    const createProduct = async () => {
+    const editProduct = async () => {
         try {
-            await ProductService.createProduct(name, price, user._id, category);
+            await ProductService.editProduct(name, price, user._id, category, product._id);
             getProducts();
             setModalVisible(false);
         }catch(error){
-            alert('Não foi possível criar seu produto!');
+            console.log(error);
+            alert('Não foi possível editar seu produto!');
         }
     };
 
@@ -39,13 +40,13 @@ export default function NewProductModal({modalVisible, setModalVisible, getProdu
         <NewCategoryModal modalVisible={newCategoryModalVisible} setModalVisible={setNewCategoryModalVisible} loadCategories={loadCategories}/>
         <ModalHeader toggle={() => {
             setModalVisible(!modalVisible);
-        }}>Adicionar produto
+        }}>Editar produto
         </ModalHeader>
         <ModalBody>
-         <input placeholder="Nome" onChange={(event) => setName(event.target.value)} />
-         <input placeholder="Preço" onChange={(event) => setPrice(event.target.value)} />
+         <input defaultValue={product?.name} placeholder="Nome" onChange={(event) => setName(event.target.value)} />
+         <input defaultValue={product?.price} placeholder="Preço" onChange={(event) => setPrice(event.target.value)} />
          <div className="category-selector">
-         <select placeholder="Categoria" onChange={(event) => setCategory(event.target.value)}>
+         <select defaultValue={product?.category?._id} placeholder="Categoria" onChange={(event) => setCategory(event.target.value)}>
              <option value="">Categoria</option>
              {
                  categories.map((category) => (
@@ -57,7 +58,7 @@ export default function NewProductModal({modalVisible, setModalVisible, getProdu
          </div>
         </ModalBody>
         <ModalFooter>
-         <button onClick={createProduct}>Adicionar</button>
+         <button onClick={editProduct}>Editar</button>
         </ModalFooter>
       </Modal>
     )

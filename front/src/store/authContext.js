@@ -29,7 +29,14 @@ const signIn = async (email, password) => {
     };
 }
 
-const signUp = async(name, email, password) => {
+const signOut = () => {
+    console.log("AAAAAAAAAAAAAAAAAAAAAA");
+    localStorage.clear();
+    setUser(null);
+    history.push("/");
+}
+
+const signUp = async (name, email, password) => {
     try {
         const response = await SessionService.logUp(name, email, password);
         localStorage.setItem("@auth:token", response.headers["x-auth-token"]);
@@ -41,7 +48,7 @@ const signUp = async(name, email, password) => {
     };
 }
     
-    return( <AuthContext.Provider value={{ signIn, signUp, user, isUserLogged: !!user }}>
+    return( <AuthContext.Provider value={{ signIn, signUp, signOut, user, isUserLogged: !!user }}>
         {children}
     </AuthContext.Provider>
     );

@@ -3,16 +3,18 @@ import { Tooltip } from 'reactstrap';
 import './style.css';
 import { FaRegEdit } from 'react-icons/all';
 import moment from "moment";
+import EditProductModal from '../EditProductModal'
 
 
-
-export default function ProductCard({product}){
+export default function ProductCard({product, getProducts}){
     console.log(product);
     const [tooltipOpen, setTooltipOpen] = useState(false);
     const toggle = () => setTooltipOpen(!tooltipOpen);
+    const [editModalVisible, setEditModalVisible] = useState(false);
 
     return(
         <div className="product-card">
+        <EditProductModal modalVisible={editModalVisible} setModalVisible={setEditModalVisible} getProducts={getProducts} product={product} />
    <div>
     <p>{product.name}</p>
     <p>{moment(product.createdAt).format("DD/MM/YYYY")}</p>
@@ -32,7 +34,7 @@ export default function ProductCard({product}){
  {product.category.description}
  </Tooltip>
  </div>
- <FaRegEdit size={30} color="#444" className="edit-icon" />
+ <FaRegEdit size={30} color="#444" className="edit-icon" onClick={() => setEditModalVisible(true)}/>
  </div>
  </div>
     )

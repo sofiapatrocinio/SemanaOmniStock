@@ -1,35 +1,30 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import './style.css'
 import logo from '../../assets/img/Logo-01.png'
 import { Link } from 'react-router-dom'
-import SessionService from '../../services/Session'
+import { AuthContext } from '../../store/authContext'
 
 export default function SignUp({history}) {
+    const { signUp } = useContext(AuthContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [name, setName] = useState('');
 
-    const signUp = async (event) => {
+    const logUp = async (event) => {
         event.preventDefault();
-        try {
-            if(password != confirmPassword){
+            if(password !== confirmPassword){
                 alert("Senhas não correspondentes");
                 return;
             }
-            const response = await SessionService.logUp(name, email, password);
-            history.push("/home");
-            console.log(response);
-        } catch(error){
-            alert(error?.response?.message || "Não foi possível concluir seu cadastro");
-        }
+            await signUp(name, email, password);
     }
     return(
         <div className="login-container">
             <div className="login-content">
             <img src={logo} alt="logo" width="250px"/>
             <p> Cadastrar meu estoque </p>
-            <form className="form" onSubmit={signUp}>
+            <form className="form" onSubmit={logUp}>
             <input placeholder="Nome" onChange={(event) => setName(event.target.value)} />
             <input type="email" placeholder="Email" onChange={(event) => setEmail(event.target.value)}/>
             <input type="password" placeholder="Senha" onChange={(event) => setPassword(event.target.value)}/>

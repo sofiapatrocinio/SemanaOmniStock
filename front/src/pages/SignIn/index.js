@@ -1,23 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import './style.css'
 import logo from '../../assets/img/Logo-01.png'
 import { Link } from 'react-router-dom'
-import SessionService from '../../services/Session'
+import { AuthContext}  from '../../store/authContext'
 
 export default function SignIn({ history }) {
+    const { signIn, isUserLogged } = useContext(AuthContext);
     const [email, setEmail] = useState('');;
     const [password, setPassword] = useState('');
+
+    useEffect(() => {
+        if(isUserLogged){
+            history.push('/home');
+        }
+    }, [isUserLogged]);
+
     const login = async (event) => {
-        event.preventDefault();
-        try {
-            const response = await SessionService.login(email, password);
-            history.push("/home");
-            console.log(response);
-        } catch (error) {
-            console.log(error.response);
-            alert(error?.response?.data.message || "Não foi possível realizar seu login");
-        };
+        event.preventDefault();  
+        await signIn(email, password);      
     };
+
     return(
         <div className="login-container">
             <div className="login-content">
@@ -29,7 +31,7 @@ export default function SignIn({ history }) {
             <button type="submit">Entrar</button>.
             </form>
             <p>Não possui uma conta?</p>
-            <Link to="/pages/SignUp">Cadastre-se</Link>
+            <Link to="/signUp">Cadastre-se</Link>
             </div>
         </div>
     )

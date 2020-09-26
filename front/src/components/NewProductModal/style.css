@@ -1,0 +1,23 @@
+.modal-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-body input, select {
+    margin-bottom: 10px;
+    width: 70%;
+    color: #7F787D;
+}
+
+.modal-body button {
+    margin-left: 10px;
+    width: 40px;
+}
+
+.modal-body button, .modal-footer button {
+    border-radius: 5px;
+}
+
+.category-selector {
+    width: 100%;
+}
